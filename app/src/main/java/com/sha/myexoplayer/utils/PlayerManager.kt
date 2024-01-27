@@ -7,7 +7,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import com.sha.myexoplayer.player.Movies
 
 class PlayerData(var prepared: Boolean = false, var player: ExoPlayer? = null)
-class PlayerManager(private val context: Context, private val videoUrls: List<Movies>) {
+class PlayerManager( private val context: Context, private val videoUrls: List<Movies>, private val preCacheItem : Int = 2) {
 
     private val players: MutableList<PlayerData> = mutableListOf()
 
@@ -17,23 +17,27 @@ class PlayerManager(private val context: Context, private val videoUrls: List<Mo
 
     private fun initializePlayers() {
         for (url in videoUrls) {
-
-            /*val mediaItem = MediaItem.fromUri(url.url)
-            player.setMediaItem(mediaItem)
-            player.prepare()*/
             players.add(PlayerData())
         }
     }
 
     private fun preparePlayers(index: Int) {
-        val startIndex = when {
+        var startIndex = index - preCacheItem
+        if(startIndex < 0){
+            startIndex = 0
+        }
+            /*when {
             index < 2 -> 0
             else -> index - 2
+        }*/
+        var endIndex = index + preCacheItem
+        if (endIndex >= videoUrls.size){
+            endIndex = videoUrls.size-1
         }
-        val endIndex = when (index) {
+            /*when (index) {
             (videoUrls.size - 1), (videoUrls.size - 2) -> videoUrls.size - 1
             else -> index + 2
-        }
+        }*/
         for (i in 0 until startIndex) {
             players[i].player?.let {
                 players[i].player?.release()

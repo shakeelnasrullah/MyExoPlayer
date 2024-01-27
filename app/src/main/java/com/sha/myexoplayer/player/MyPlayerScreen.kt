@@ -61,24 +61,15 @@ fun MyPlayerScreen(modifier: Modifier) {
     val playerManager = PlayerManager(context, videoList)
 
 
-    /*  // Starting service to download only 100KB data of each item
-      val preloadingServiceIntent = Intent(context, VideoPreLoadingService::class.java)
-      preloadingServiceIntent.putParcelableArrayListExtra(
-          Constants.VIDEO_LIST,
-          videoList as ArrayList<Movies>
-      )
-      context.startService(preloadingServiceIntent)*/
+    var currentPage by remember {
+        mutableIntStateOf(0)
+    }
 
     val pagerState = rememberPagerState(
         initialPage = 0,
         initialPageOffsetFraction = 0f
     ) {
         videoList.size
-    }
-
-    //val pagerState = rememberPagerState()
-    var currentPage by remember {
-        mutableIntStateOf(0)
     }
 
     LaunchedEffect(key1 = pagerState) {
@@ -89,7 +80,7 @@ fun MyPlayerScreen(modifier: Modifier) {
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = modifier) {
         VerticalPager(
             state = pagerState, modifier = Modifier.fillMaxSize()
         ) { page ->
@@ -108,7 +99,11 @@ fun createChild(
     if (shouldPlay) {
         createMyPlayer(modifier, currentPage, playerManager)
     } else {
-        Column(modifier = modifier, verticalArrangement = Arrangement.Center) {
+        Column(
+            modifier = modifier,
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             CircularProgressIndicator()
         }
     }
@@ -122,38 +117,14 @@ fun createMyPlayer(
     playerManager: PlayerManager,
 ) {
     println("Fahad::createMyPlayer$currentPage::true")
-    val context = LocalContext.current
-
-    /*val currentMediaItem = MediaItem.fromUri(videoList[currentPage].url)
-    val cacheDataSourceFactory = Utility.createCache(context)
-    val currentMediaSource =
-        DefaultMediaSourceFactory(cacheDataSourceFactory).createMediaSource(currentMediaItem)
 
 
-    val exoPlayer = ExoPlayer.Builder(context).build()
-     */
     val exoPlayer = playerManager.getPlayer(currentPage)
-    //playerManager.preparePlayer(currentPage)
-    /*if (currentPage == pagerState.currentPage) {
-        playerManager.playCurrentItem(currentPage)
-    }*/
+
     playerManager.playCurrentItem(currentPage)
 
     Box(modifier = modifier) {
-        /*DisposableEffect(key1 = Unit) {
-            onDispose {
-                exoPlayer?.release()
-            }
-        }*/
-        /*AndroidView(factory = {
-            PlayerView(context).apply {
-                player = exoPlayer
-                layoutParams = FrameLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
-                )
-            }
-        })*/
+
 
         val playerView = rememberPlayerView(exoPlayer!!)
         Player(
