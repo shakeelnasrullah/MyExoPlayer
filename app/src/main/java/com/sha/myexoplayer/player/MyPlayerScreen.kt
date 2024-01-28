@@ -1,5 +1,6 @@
 package com.sha.myexoplayer.player
 
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.compose.animation.AnimatedVisibility
@@ -36,9 +37,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.ui.AspectRatioFrameLayout
@@ -57,7 +62,8 @@ private const val TAG: String = "PlayerScreen"
 fun MyPlayerScreen(modifier: Modifier) {
     // Screen Content
     val context = LocalContext.current
-    val videoList = Utility.dummyData()
+    //val videoList = Utility.dummyData()
+    val videoList = Utility.dummyMoviesList()
     val playerManager = PlayerManager(context, videoList)
 
 
@@ -84,7 +90,8 @@ fun MyPlayerScreen(modifier: Modifier) {
         VerticalPager(
             state = pagerState, modifier = Modifier.fillMaxSize()
         ) { page ->
-            createChild(Modifier.fillMaxSize(), page, playerManager, currentPage == page)
+            //createChild(Modifier.fillMaxSize(), page, playerManager, currentPage == page)
+            createChild(Modifier.fillMaxSize(), page, playerManager, pagerState.currentPage == page)
         }
     }
 }
@@ -171,6 +178,21 @@ fun Player(
                 .aspectRatio(aspectRatio)
                 .align(Alignment.Center)
         )
+        ComposableLifecycle { _, event ->
+            when (event) {
+
+                Lifecycle.Event.ON_START -> {
+                    playerView.player!!.play()
+                    Log.d(TAG, "On Start")
+                }
+                Lifecycle.Event.ON_STOP -> {
+                    playerView.player!!.pause()
+                    Log.d(TAG, "On Stop")
+                }
+
+                else -> {}
+            }
+        }
         /*AnimatedVisibility(
             visibleState = iconVisibleState,
             enter = scaleIn(
@@ -202,7 +224,8 @@ fun rememberPlayerView(player: Player): PlayerView {
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
             useController = false
-            resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
+            resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
+
             //setShowBuffering(PlayerView.SHOW_BUFFERING_NEVER)
             this.player = player
         }
@@ -214,5 +237,22 @@ fun rememberPlayerView(player: Player): PlayerView {
         }
     }
     return playerView
+}
+@Composable
+fun ComposableLifecycle(
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
+    onEvent: (LifecycleOwner, Lifecycle.Event) -> Unit
+) {
+
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { source, event ->
+            onEvent(source, event)
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
 }
 

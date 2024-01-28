@@ -59,12 +59,12 @@ class Utility {
 
         fun dummyMoviesList() : List<Movies>{
             return arrayListOf<Movies>(
-                Movies("Min", "https:\\/\\/untamed-vod-v1-source71e471f1-o72av4ghlldb.s3.amazonaws.com\\/upload\\/videos\\/2024\\/0\\/624hhDbFUq3zfu3wWJb94XEjjYjm22PLvhNAhDkuTJx19aSiuLjKjtw_video."),
-                Movies("Pa", "https:\\/\\/d12wboyscx16xj.cloudfront.net\\/4382715f-2ae0-4290-8d6e-b764a3739b3a\\/hls\\/ed5tpD8fZvOkfDwVVy6oB947J8Y7pjPeSaz2yOCL8fakjDzg7AVbag1_video.m3u8"),
-                Movies("Pa", "https:\\/\\/d12wboyscx16xj.cloudfront.net\\/0768b318-c695-4b64-b081-ebd36b82e4a6\\/hls\\/7pFDWICLmYB8ltTq1Wvxm3rbSuYj7nDhiTKehuDM9sZdRkoazBPW31e_video.m3u8"),
-                Movies("Pa", "https:\\/\\/d12wboyscx16xj.cloudfront.net\\/c1935209-96b8-4659-b309-abebd5fca57b\\/hls\\/yGjcw8w2ab38quBjuaCmsgmL54E9CMmrnQnblb5LuQrE5RR4dgJoeZS_video.m3u8"),
-                Movies("Pa", "https:\\/\\/d12wboyscx16xj.cloudfront.net\\/87da6b20-94a4-4ae6-9fd5-406a58754eaa\\/hls\\/qWipo4h6DuzRSzDMRxTp_26_46363d585b8acfd32416dff9164b30d0_video.m3u8"),
-                Movies("Pa", "https:\\/\\/d12wboyscx16xj.cloudfront.net\\/7a5576e3-6525-4c93-8503-b8e4b4c39dab\\/hls\\/r4UAHUlrfqJjk5msgiV8_26_e0d960853bc4d3bc77502483e5d2832e_video.m3u8")
+                //Movies("Min", "https://untamed-vod-v1-source71e471f1-o72av4ghlldb.s3.amazonaws.com/upload/videos/2024/0/624hhDbFUq3zfu3wWJb94XEjjYjm22PLvhNAhDkuTJx19aSiuLjKjtw_video."),
+                Movies("Pa", "https://d12wboyscx16xj.cloudfront.net/4382715f-2ae0-4290-8d6e-b764a3739b3a/hls/ed5tpD8fZvOkfDwVVy6oB947J8Y7pjPeSaz2yOCL8fakjDzg7AVbag1_video.m3u8"),
+                Movies("Pa", "https://d12wboyscx16xj.cloudfront.net/0768b318-c695-4b64-b081-ebd36b82e4a6/hls/7pFDWICLmYB8ltTq1Wvxm3rbSuYj7nDhiTKehuDM9sZdRkoazBPW31e_video.m3u8"),
+                Movies("Pa", "https://d12wboyscx16xj.cloudfront.net/c1935209-96b8-4659-b309-abebd5fca57b/hls/yGjcw8w2ab38quBjuaCmsgmL54E9CMmrnQnblb5LuQrE5RR4dgJoeZS_video.m3u8"),
+                Movies("Pa", "https://d12wboyscx16xj.cloudfront.net/87da6b20-94a4-4ae6-9fd5-406a58754eaa/hls/qWipo4h6DuzRSzDMRxTp_26_46363d585b8acfd32416dff9164b30d0_video.m3u8"),
+                Movies("Pa", "https://d12wboyscx16xj.cloudfront.net/7a5576e3-6525-4c93-8503-b8e4b4c39dab/hls/r4UAHUlrfqJjk5msgiV8_26_e0d960853bc4d3bc77502483e5d2832e_video.m3u8")
                 )
         }
 
