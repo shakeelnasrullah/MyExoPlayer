@@ -18,6 +18,7 @@ import com.rudderstack.android.sdk.core.RudderProperty
 import com.rudderstack.android.sdk.core.RudderTraits
 import com.sha.myexoplayer.player.MyPlayerScreen
 import com.sha.myexoplayer.ui.theme.MyExoPlayerTheme
+import com.sha.myexoplayer.utils.PlayerManager
 import java.util.Date
 
 class MainActivity : ComponentActivity() {
@@ -65,5 +66,10 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
     }
 }

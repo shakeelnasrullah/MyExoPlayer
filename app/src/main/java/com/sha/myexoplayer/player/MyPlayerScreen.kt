@@ -2,15 +2,8 @@ package com.sha.myexoplayer.player
 
 import android.util.Log
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.MutableTransitionState
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -18,11 +11,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -34,12 +25,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -150,16 +138,7 @@ fun Player(
     modifier: Modifier = Modifier,
     aspectRatio: Float
 ) {
-    var animatedIconDrawable by remember {
-        mutableStateOf(0)
-    }
-    val iconVisibleState = remember {
-        MutableTransitionState(false)
-    }
-    var animationJob: Job? by remember {
-        mutableStateOf(null)
-    }
-    val context = LocalContext.current
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -193,22 +172,6 @@ fun Player(
                 else -> {}
             }
         }
-        /*AnimatedVisibility(
-            visibleState = iconVisibleState,
-            enter = scaleIn(
-                spring(Spring.DampingRatioMediumBouncy)
-            ),
-            exit = scaleOut(tween(150)),
-            modifier = Modifier.align(Alignment.Center)
-        ) {
-            Icon(
-                painter = painterResource(animatedIconDrawable),
-                contentDescription = null,
-                tint = Color.White.copy(0.90f),
-                modifier = Modifier
-                    .size(100.dp)
-            )
-        }*/
     }
 }
 
